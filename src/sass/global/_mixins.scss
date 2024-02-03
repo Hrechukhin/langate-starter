@@ -1,0 +1,24 @@
+@use 'variables' as *;
+
+@mixin responsive-font-size($size, $breakpoint: null) {
+	font-size: $size;
+
+	@if $breakpoint {
+		@media (min-width: $breakpoint) {
+			font-size: $size;
+		}
+	}
+}
+
+// Mixin for responsive spacing
+@mixin responsive-spacing($size, $breakpoint: null) {
+	margin-bottom: $size;
+	margin-top: $size;
+
+	@if $breakpoint {
+		@media (min-width: $breakpoint) {
+			margin-bottom: $size;
+			margin-top: $size;
+		}
+	}
+}

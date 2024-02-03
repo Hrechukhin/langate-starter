@@ -1,0 +1,10 @@
+@use "../global" as *;
+
+%base-style {
+	font-family: "Arial", sans-serif;
+	font-weight: normal;
+}
+
+body {
+	@extend %base-style;
+}

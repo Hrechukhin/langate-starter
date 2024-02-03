@@ -1,0 +1,17 @@
+@use "variables" as *;
+@use "sass:math";
+
+// Function to convert pixels to rems
+@function rem($pxValue) {
+	@return math.div($pxValue, 16px) * 1rem;
+}
+
+// Function to calculate line height based on font size
+@function calc-line-height($font-size) {
+	@return $font-size * $base-line-height;
+}
+
+// Function for easy vertical rhythm spacing
+@function vr($multiplier: 1) {
+	@return $base-spacing-unit * $multiplier;
+}
