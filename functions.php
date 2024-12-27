@@ -1,34 +1,43 @@
 <?php
 
-function include_files_from_folder($folder)
+/**
+ * Load files recursively from a directory
+ *
+ * @param  string $dir Directory to load files from
+ * @return void
+ */
+function load_files($dir)
 {
-    $paths = glob($folder . '*');
-
-    if ($paths === false) {
-        error_log("Failed to retrieve files from folder: $folder");
+    if (!is_dir($dir)) {
+        error_log("Directory does not exist or is not accessible: $dir");
         return;
     }
 
-    foreach ($paths as $path) {
-        if (is_file($path) && is_readable($path)) {
-            include_once $path;
-        } else {
-            error_log("Unable to include file: $path");
+    $files = glob($dir . '/*.php');
+
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            require_once($file);
         }
+    }
+
+    $directories = glob($dir . '/*', GLOB_ONLYDIR);
+    foreach ($directories as $directory) {
+        load_files($directory);
     }
 }
 
-$folders = [
-    'includes/',
-    'includes/widgets/',
-    'includes/shortcodes/',
-    'includes/microdata/',
-    'includes/post-types/',
-    'includes/taxonomies/',
-	'includes/custom-fields/',
-];
-
-foreach ($folders as $folder) {
-    include_files_from_folder(__DIR__ . '/' . $folder);
+/**
+ * Small autoload function that initiates the file loading process
+ *
+ * @return void
+ */
+function autoload_app()
+{
+    load_files(__DIR__ . '/includes');
 }
 
+/**
+ * Start autoloading process
+ */
+autoload_app();

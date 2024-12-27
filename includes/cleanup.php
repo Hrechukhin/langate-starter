@@ -1,5 +1,4 @@
 <?php
-define('WP_POST_REVISIONS', 1);
 
 function clear_nav_menu_item_id($id, $item, $args)
 {
